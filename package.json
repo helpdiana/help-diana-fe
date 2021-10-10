@@ -12,6 +12,7 @@
     "@vue/composition-api": "1.0.4",
     "@vuetify/cli-plugin-utils": "^0.0.9",
     "apexcharts": "^3.27.3",
+    "axios": "^0.22.0",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",

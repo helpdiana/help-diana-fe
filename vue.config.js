@@ -1,8 +1,34 @@
 const { mergeSassVariables } = require('@vuetify/cli-plugin-utils')
+const path = require('path');
+
+function resolveSrc(_path) {
+  return path.join(__dirname, _path);
+}
 
 module.exports = {
+  lintOnSave: false,
   publicPath: process.env.NODE_ENV === 'production' ? '/demo/materio-vuetify-vuejs-admin-template-free/demo' : '/',
   transpileDependencies: ['vuetify'],
+  devServer: {
+    // 프록시 설정
+    //proxy : "https://startroad.me/api"
+    /*
+    proxy : {
+      target : "https://startroad.me"
+    },
+    */
+    disableHostCheck:true,
+    proxy: {
+        // 프록시 요청을 보낼 api의 시작 부분
+        '/api': {
+            // 프록시 요청을 보낼 서버의 주소
+            //target: 'https://c2e79960-228b-4a11-8a9c-5f9973cd9f68.mock.pstmn.io',
+            target: 'https://startroad.me',
+            changeOrigin : true,
+
+        }
+    }
+  },
   chainWebpack: config => {
     const modules = ['vue-modules', 'vue', 'normal-modules', 'normal']
     modules.forEach(match => {

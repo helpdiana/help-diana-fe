@@ -1,49 +1,56 @@
 <template>
   <v-card class="greeting-card">
     <v-row class="ma-0 pa-0">
-      <v-col cols="8">
+      <v-col cols="12">
         <v-card-title class="text-no-wrap pt-1 ps-2">
-          Congratulations John! 🥳
+          진단서 등록하기
         </v-card-title>
         <v-card-subtitle class="text-no-wrap ps-2">
-          You have won Trophy
+          아래버튼을 눌러서 진행
         </v-card-subtitle>
         <v-card-text class="d-flex align-center mt-2 pb-2 ps-2">
           <div>
             <p class="text-xl font-weight-semibold primary--text mb-2">
-              $42.8k
+              AI 진단서 해석
             </p>
-
             <v-btn
-              small
+              
               color="primary"
+              @click="pictureUpload()"
             >
-              View Sales
+              내저장소에서 기록
             </v-btn>
           </div>
         </v-card-text>
       </v-col>
-
-      <v-col cols="4">
-        <v-img
-          contain
-          height="180"
-          width="159"
-          :src="require(`@/assets/images/misc/triangle-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
-          class="greeting-card-bg"
-        ></v-img>
-        <v-img
-          contain
-          height="108"
-          max-width="83"
-          class="greeting-card-trophy"
-          src="@/assets/images/misc/trophy.png"
-        ></v-img>
-      </v-col>
     </v-row>
   </v-card>
 </template>
-
+<script>
+export default {
+  components : {
+  },
+  data(){
+    return {
+    }
+  },
+  computed :{
+    
+  },
+  methods:{
+    cameraScan(){
+      this.$router.push('camera-scan')
+    },
+    pictureUpload(){
+      this.$router.push('search-image')
+    }
+  },
+  mounted(){
+  },
+  created(){
+  }
+};
+</script>
 <style lang="scss" scoped>
 .greeting-card {
   position: relative;
