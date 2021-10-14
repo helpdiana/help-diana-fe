@@ -57,7 +57,7 @@
       height="56"
       class="px-0"
     >
-      <div class="boxed-container w-full">
+      <!-- <div class="boxed-container w-full">
         <div class="mx-6 d-flex justify-space-between">
           <span>
             &copy; 2021 <a
@@ -83,7 +83,7 @@
             >MIT Licence</a>
           </span>
         </div>
-      </div>
+      </div> -->
     </v-footer>
   </v-app>
 </template>
