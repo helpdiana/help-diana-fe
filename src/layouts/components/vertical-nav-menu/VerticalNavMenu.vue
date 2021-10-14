@@ -15,7 +15,7 @@
         class="d-flex align-center text-decoration-none"
       >
         <v-img
-          :src="require('@/assets/images/logos/logo.svg')"
+          :src="require('@/assets/images/logos/helpdiana.png')"
           max-height="30px"
           max-width="30px"
           alt="logo"
@@ -25,7 +25,7 @@
         ></v-img>
         <v-slide-x-transition>
           <h2 class="app-title text--primary">
-            MATERIO
+            HELP DIANA
           </h2>
         </v-slide-x-transition>
       </router-link>
@@ -42,12 +42,18 @@
         :to="{ name: 'dashboard' }"
         :icon="icons.mdiHomeOutline"
       ></nav-menu-link>
-      <nav-menu-link
+      <!-- <nav-menu-link
         title="Account Settings"
         :to="{ name: 'pages-account-settings'}"
         :icon="icons.mdiAccountCogOutline"
-      ></nav-menu-link>
-      <nav-menu-group
+      ></nav-menu-link> -->
+      <nav-menu-link
+        title="Upload Diagnosis"
+        :to="{name:'search-image'}"
+        :icon="icons.mdiCamera"
+      >
+      </nav-menu-link>
+      <!-- <nav-menu-group
         title="Pages"
         :icon="icons.mdiFileOutline"
       >
@@ -66,8 +72,8 @@
           :to="{ name: 'error-404' }"
           target="_blank"
         ></nav-menu-link>
-      </nav-menu-group>
-      <nav-menu-section-title title="USER INTERFACE"></nav-menu-section-title>
+      </nav-menu-group> -->
+      <!-- <nav-menu-section-title title="USER INTERFACE"></nav-menu-section-title>
       <nav-menu-link
         title="Typography"
         :to="{ name: 'typography' }"
@@ -92,9 +98,9 @@
         title="Form Layouts"
         :to="{ name: 'form-layouts' }"
         :icon="icons.mdiFormSelect"
-      ></nav-menu-link>
+      ></nav-menu-link> -->
     </v-list>
-    <a
+    <!-- <a
       href="https://themeselection.com/products/materio-vuetify-vuejs-admin-template"
       target="_blank"
       rel="nofollow"
@@ -106,7 +112,7 @@
         class="upgrade-banner mx-auto"
         max-width="230"
       ></v-img>
-    </a>
+    </a> -->
   </v-navigation-drawer>
 </template>
 
@@ -121,6 +127,7 @@ import {
   mdiFileOutline,
   mdiFormSelect,
   mdiAccountCogOutline,
+  mdiCamera
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -149,6 +156,7 @@ export default {
         mdiFileOutline,
         mdiFormSelect,
         mdiAccountCogOutline,
+        mdiCamera,
       },
     }
   },

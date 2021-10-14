@@ -93,6 +93,6 @@ export default {
 
 <style lang="scss">
 .ocr-textarea{
-  margin-top:30px;
+  margin-top:30px !important;
 }
 </style>

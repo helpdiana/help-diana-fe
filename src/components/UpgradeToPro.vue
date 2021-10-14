@@ -29,12 +29,12 @@
       class="elevation-0"
       max-width="400"
     >
-      <v-img
+      <!-- <v-img
         max-width="400"
         eager
         :src="require('@/assets/images/pro/materio-banner.png')"
         alt="materio-pro-banner"
-      ></v-img>
+      ></v-img> -->
       <v-card-title class="font-weight-semibold">
         Materio - Vuetify Admin Template
       </v-card-title>

@@ -7,15 +7,13 @@
           color="primary"
           class="text-none mr-2"
           small
-          round
           depressed
-          :loading="isSelecting"
           @click="onButtonClick"
         >
           <v-icon left>
             {{icons.mdiCloudUpload}}
           </v-icon>
-          사진 올리기
+          진단서 올리기
         </v-btn>
         <input
           ref="uploader"
@@ -29,7 +27,7 @@
           small
           @click="processImage()"
         >
-          사진 저장 및 가공
+          진단서 저장 및 가공
         </v-btn>
       </div>
     </v-row>
@@ -82,7 +80,7 @@ export default {
   methods:{
     onButtonClick(){
       this.isSelecting = true
-      window.addEventListener('focus', () => {
+      window.addEventListener('visibilitychange', () => {
         this.isSelecting = false
       }, { once: true })
 

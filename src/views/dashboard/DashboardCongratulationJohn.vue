@@ -18,7 +18,7 @@
               color="primary"
               @click="pictureUpload()"
             >
-              내저장소에서 기록
+              진단서 등록
             </v-btn>
           </div>
         </v-card-text>

@@ -6,8 +6,8 @@ function resolveSrc(_path) {
 }
 
 module.exports = {
+  publicPath : '/',
   lintOnSave: false,
-  publicPath: process.env.NODE_ENV === 'production' ? '/demo/materio-vuetify-vuejs-admin-template-free/demo' : '/',
   transpileDependencies: ['vuetify'],
   devServer: {
     // 프록시 설정
@@ -23,7 +23,7 @@ module.exports = {
         '/api': {
             // 프록시 요청을 보낼 서버의 주소
             //target: 'https://c2e79960-228b-4a11-8a9c-5f9973cd9f68.mock.pstmn.io',
-            target: 'https://startroad.me',
+            target: 'https://helpdiana.me',
             changeOrigin : true,
 
         }
