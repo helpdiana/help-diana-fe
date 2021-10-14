@@ -2,10 +2,10 @@
 <v-container>
     <v-row><p class="text-2xl mb-6"> 텍스트 추출 결과 확인 </p></v-row>
     <v-row>
-      <v-btn color="primary" @click="editText()"> 텍스트 수정</v-btn>
-      <v-btn color="success" @click="showResult()">결과 보기</v-btn>
+      <v-btn color="primary mr-2" small @click="editText()"> 텍스트 수정</v-btn>
+      <v-btn color="success" small @click="showResult()">결과 보기</v-btn>
     </v-row>
-    <v-row>
+    <v-row class="ocr-textarea">
       <v-textarea
       name="input-7-1"
       filled
@@ -79,7 +79,7 @@ export default {
 
     },
     showResult(){
-
+      this.$router.push('show-result')
     }
 
   },
@@ -91,5 +91,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.ocr-textarea{
+  margin-top:30px;
+}
 </style>
