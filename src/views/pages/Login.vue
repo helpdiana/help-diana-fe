@@ -33,6 +33,7 @@
             :key="link.icon"
             outlined
             color="primary"
+            @click="googleLogin()"
           >
             <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
               {{ link.icon }}
@@ -120,6 +121,12 @@ export default {
         mdiEyeOutline,
         mdiEyeOffOutline,
       },
+    }
+  },
+  methods : {
+    googleLogin(){
+      console.log("this google login")
+      //this.$store.commit("GOOGLELOGIN")
     }
   },
 }

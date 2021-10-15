@@ -2,8 +2,10 @@
 <v-container>
     <v-row><p class="text-2xl mb-6"> 결과보기 </p></v-row>
     <v-row>
-      <v-btn color="primary" small @click="saveResult()">결과 저장</v-btn>
-      
+      <v-btn class="mr-1" color="primary" small @click="saveResult()">결과 저장</v-btn>
+      <v-btn class="mr-1" color="primary" small @click="requestQuestion()">설명 요청</v-btn>
+      <v-btn class="mr-1" color="success" small @click="saveReportResult()">
+        <v-icon>{{icons.mdiFileDocument}}</v-icon>보고서 저장</v-btn>
     </v-row>
     <v-row>
       <v-col class="result-body">
@@ -27,11 +29,15 @@
 </template>
 
 <script>
+import {mdiFileDocument} from "@mdi/js"
 export default {
   components : {
   },
   data(){
     return {
+      icons:{
+        mdiFileDocument
+      },
       selected: [2],
       rawText : [
         [

@@ -6,8 +6,42 @@ import axios from 'axios'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    accessToken : null,
+  },
+  getters:{
+    isAuthenticated (state) {
+      state.accessToken = state.accessToken || localStorage.accessToken
+      return state.accessToken
+    }
+  },
+  mutations: {
+    LOGIN (state, {accessToken}) {
+      state.accessToken = accessToken
+      localStorage.accessToken = accessToken
+    },
+    GOOGLELOGIN(state, accessToken){
+
+      state.accessToken = accessToken
+      localStorage.accessToken = accessToken
+
+    },
+
+  },
+  actions: {
+    GOOGLELOGIN({commit}){
+      this.$gAuth.getAuthCode()
+      .then((authCode)=>{
+        return this.$http.post('https://helpdiana.site/api/auth/login', { code: authCode, redirect_uri: 'url적어야 하는곳' })
+      })
+      .then((res)=>{
+
+      })
+      .catch((err) => {
+      })
+      
+    },
+    
+  },
   modules: {},
 });
