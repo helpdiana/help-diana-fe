@@ -18,7 +18,7 @@ Vue.use(GAuth, {clientId: process.env.VUE_APP_GOOGLE_KEY, scope: 'profile email'
 
 Vue.config.productionTip = false;
 //axios setup
-Vue.prototype.$axios = axios
+Vue.prototype.$http = axios
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.common['Access-Control-Allow-Headers'] = "*";
 axios.defaults.headers.common['Access-Control-Allow-Methods'] = "GET, DELETE, PUT, POST";

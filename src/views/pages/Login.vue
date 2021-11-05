@@ -88,6 +88,7 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
+import Api from '../../api/api'
 import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 
@@ -125,9 +126,35 @@ export default {
   },
   methods : {
     googleLogin(){
-      console.log("this google login")
-      //this.$store.commit("GOOGLELOGIN")
+        this.$gAuth.signIn()
+        .then((GoogleUser) => {
+          let data = {
+            access_token : GoogleUser.Zb.access_token
+          }
+          console.log(data)
+          Api.googleLoginDirect(data)
+          .then((res)=>{
+            console.log(res.data)
+            this.$store.commit('GOOGLELOGIN', res.data)
+            //나중에 수정할것 이위치에 action으로 그 accesstoken이 valid한지 valid하지 않은지 해야함
+            //dispatch로 하고 그다음에 redirect해야함 지금 시간이 없어서 제외함
+            this.redirect()
+          })
+          .catch((err) => {
+            console.log("error1")
+
+          })
+
+        })
+        .catch((error) => {
+          console.log("에러2")
+          console.log(error)
+        })
+    },
+    redirect(){
+      this.$router.push("/")
     }
+    
   },
 }
 </script>

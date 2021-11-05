@@ -30,12 +30,14 @@ export default new Vuex.Store({
   },
   actions: {
     GOOGLELOGIN({commit}){
+      
       this.$gAuth.getAuthCode()
       .then((authCode)=>{
-        return this.$http.post('https://helpdiana.site/api/auth/login', { code: authCode, redirect_uri: 'url적어야 하는곳' })
+        
+        return this.$http.post('https://helpdiana.site/api/auth/login', { code: authCode, redirect_uri: 'postmessage' })
       })
       .then((res)=>{
-
+        
       })
       .catch((err) => {
       })

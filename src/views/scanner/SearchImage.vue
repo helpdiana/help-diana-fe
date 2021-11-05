@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import Api from '@/api/api'
 import { mdiCloudUpload } from '@mdi/js'
 export default {
   components : {
@@ -70,8 +71,10 @@ export default {
       },
       images:[],
       url : [],
-      image:null,
+      image : null,
       isSelecting : false,
+      dia_name : "mock name",
+      dia_date : "2021-11-05",
     }
   },
   computed :{
@@ -102,7 +105,20 @@ export default {
     },
     processImage(){
       //여기서 이미지 그다음서버에 돌리고 스피너를 넣어야합니다.
-      this.$router.push('process-image')
+      console.log(this.images)
+      let data = {
+        //files : this.images,
+        name : this.dia_name,
+        date : this.dia_date
+      }
+      console.log(data)
+      Api.addDiagnose(data)
+      .then((res) => {
+        console.log(res)
+      })
+
+
+      //this.$router.push('process-image')
     },
     deleteImage(index){
       if(index > -1){

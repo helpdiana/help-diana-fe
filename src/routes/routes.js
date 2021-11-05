@@ -21,12 +21,12 @@ const requireAuth = () => (from, to, next) => {
 const routes = [
   {
     path: '/',
-    //beforeEnter : requireAuth(),
+    beforeEnter : requireAuth(),
     redirect: 'dashboard',
   },
   {
     path: '/dashboard',
-    //beforeEnter : requireAuth(),
+    beforeEnter : requireAuth(),
     name: 'dashboard',
     component: () => import('@/views/dashboard/Dashboard.vue'),
   },
