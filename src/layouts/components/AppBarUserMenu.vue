@@ -154,6 +154,7 @@
 </template>
 
 <script>
+import store from "@/store"
 import {
   mdiAccountOutline,
   mdiEmailOutline,
@@ -182,7 +183,9 @@ export default {
   },
   methods : {
     logout(){
-      
+      store.dispatch("LOGOUT").then(() => {
+        this.$router.go('/')
+      })
     },
   }
 }

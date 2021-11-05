@@ -26,6 +26,10 @@ export default new Vuex.Store({
       localStorage.accessToken = accessToken
 
     },
+    LOGOUT (state) {
+      state.accessToken = null
+      delete localStorage.accessToken
+    },
 
   },
   actions: {
@@ -43,6 +47,11 @@ export default new Vuex.Store({
       })
       
     },
+    LOGOUT({commit}){
+      axios.defaults.headers.common['Authorization'] = undefined
+      commit('LOGOUT')
+    }
+
     
   },
   modules: {},

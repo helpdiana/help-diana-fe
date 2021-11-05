@@ -20,13 +20,14 @@ export default {
         let content = ""
         if(type == "file"){
             // 사진 업로드시 파일을 업로드 한다는 것을 명시해주세요.
-            content = "multipart/form-data"
+            console.log("멀티파트")
+            content = "multipart/form-data; boundary=----myboundary"
         }else{
             content = "application/x-www-form-urlencoded"
         }
         const headers = {
             'Authorization' : `Bearer ${auth}`,
-            //'Content-Type': content
+            'Content-Type': content
         }
         return headers
     },
@@ -72,13 +73,16 @@ export default {
         })
     },
     addDiagnose(data){
-        console.log(data)
+        var bodyFormData = new FormData();
+        //multipart data일 경우 FormData를 사용해서 넣습니다.
+        bodyFormData.append("files", [data.files])
+        bodyFormData.append("name", data.name);
+        bodyFormData.append("date", data.date)
         return Send({
-            //url: `/diagnose/addd`,
-            url: `/diagnose/addd`,
+            url: `/diagnose/add`,
             method : 'post',
-            data : data,
-            headers : this.requireAuth()
+            data : bodyFormData,
+            headers : this.requireAuth('file')
         })
     }
 

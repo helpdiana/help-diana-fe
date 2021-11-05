@@ -1,43 +1,49 @@
 <template>
 <v-container>
-    <v-row><p class="text-2xl mb-6"> 사진 올리기 </p></v-row>
-    <v-row>
-      <div>
-        <v-btn
-          color="primary"
-          class="text-none mr-2"
-          small
-          depressed
-          @click="onButtonClick"
-        >
-          <v-icon left>
-            {{icons.mdiCloudUpload}}
-          </v-icon>
-          진단서 올리기
-        </v-btn>
-        <input
-          ref="uploader"
-          class="d-none"
-          type="file"
-          accept="image/*"
-          @change="onFileChanged"
-        >
-        <v-btn
-          color="success"
-          small
-          @click="processImage()"
-        >
-          진단서 저장 및 가공
-        </v-btn>
-      </div>
-    </v-row>
-	<v-row class="card-view">
-		<v-col class="card-view-image pa-2" cols="12" sm="6" md="4" lg="3" xl="2" v-for="(url,index) in this.url" :key=index>
-			<!-- 카드 UI에 사진 담아내기-->
-      <span class="card-view-number">
+  <v-row><p class="text-2xl mb-6"> 사진 올리기 </p></v-row>
+  <v-row>
+    <div>
+      <v-btn
+        color="primary"
+        class="text-none mr-2"
+        small
+        depressed
+        @click="onButtonClick"
+      >
+        <v-icon left>
+          {{icons.mdiCloudUpload}}
+        </v-icon>
+        진단서 올리기
+      </v-btn>
+      <input
+        ref="uploader"
+        class="d-none"
+        type="file"
+        accept="image/*"
+        @change="onFileChanged"
+      >
+      <v-btn
+        color="success"
+        small
+        @click="checkDialog()"
+      >
+        진단서 저장 및 가공
+      </v-btn>
+    </div>
+  </v-row>
+  <v-row justify="center" align="center" v-if="!images.length" class="empty-message">
+    <v-icon size="22">
+        {{ icons.mdiArchiveArrowUpOutline }}
+    </v-icon>
+    <span>진단서 사진을 업로드 해주세요 </span>
+  </v-row>
+  <v-row class="card-view">
+    <v-col class="card-view-image pa-2" cols="12" sm="6" md="4" lg="3" xl="2" v-for="(url,index) in this.url" :key=index>
+      <!-- 카드 UI에 사진 담아내기-->
+      <!-- <span class="card-view-number">
         {{index + 1}}
-      </span>
-			<v-card height="200px" outlined
+      </span> -->
+      <v-card height="200px" outlined
       >
       <v-btn
         class="mx-2 delete-button"
@@ -50,31 +56,109 @@
         mdi-close
       </v-icon>
     </v-btn>
-				<v-img :src="url" height="200px">
-				</v-img>
-			</v-card>
-		</v-col>
-	</v-row>
+        <v-img :src="url" height="200px">
+        </v-img>
+      </v-card>
+    </v-col>
+  </v-row>
+  <v-row justify="center">
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">진단서 업로드</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  label="진단서 제목"
+                  required
+                  v-model="dia_name"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-menu
+                  v-model="menu2"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="dia_date"
+                      label="진단서 날짜"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                <v-date-picker
+                  v-model="dia_date"
+                  @input="menu2 = false"
+                ></v-date-picker>
+              </v-menu>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-alert
+          border="left"
+          colored-border
+          type="warning"
+          elevation="2"
+        >
+          진단서에 개인정보로 식별될 수 있는 이름 생년 월 일등은 가리고 업로드 해주시기 바랍니다.
+        </v-alert>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="processImage()"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </v-container>
 </template>
 
 <script>
 import Api from '@/api/api'
-import { mdiCloudUpload } from '@mdi/js'
+import { mdiCloudUpload, mdiArchiveArrowUpOutline } from '@mdi/js'
 export default {
   components : {
   },
   data(){
     return {
       icons : {
-        mdiCloudUpload
+        mdiCloudUpload,
+        mdiArchiveArrowUpOutline
       },
       images:[],
       url : [],
       image : null,
       isSelecting : false,
-      dia_name : "mock name",
-      dia_date : "2021-11-05",
+      dia_name : "",
+      dia_date : (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      dialog: false,
+      menu2: false,
     }
   },
   computed :{
@@ -103,18 +187,24 @@ export default {
         this.url.push(URL.createObjectURL(this.images[i]))
       }
     },
+    checkDialog(){
+      //Modal 띄우기
+      this.dialog = true
+    },
     processImage(){
-      //여기서 이미지 그다음서버에 돌리고 스피너를 넣어야합니다.
-      console.log(this.images)
+
       let data = {
-        //files : this.images,
+        files : this.images,
         name : this.dia_name,
         date : this.dia_date
       }
-      console.log(data)
       Api.addDiagnose(data)
       .then((res) => {
-        console.log(res)
+        this.dialog = false
+        this.$router.push('process-image')
+      })
+      .catch((err) => {
+        alert("업로드 오류 발생!")
       })
 
 
@@ -141,16 +231,20 @@ export default {
     position:absolute;
     top : 10px;
     right:0;
-    z-index:9999;
+    z-index:100;
     color : red;
   }
   .card-view-number{
     position:absolute;
-    z-index:9999;
+    z-index:100;
     left:40px;
     color : blue;
     font-weight : bold;
   }
+}
+.empty-message{
+  position: relative;
+  top: 30vh;
 }
 
 </style>

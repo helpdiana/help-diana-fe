@@ -33,27 +33,32 @@ const routes = [
   //여기서부터 help-dinana 
   {
     path : '/camera-scan',
+    beforeEnter : requireAuth(),
     name:'camera-scan',
     component:() => import("@/views/scanner/CameraScan.vue"),
   },
   {
     path : '/search-image',
+    beforeEnter : requireAuth(),
     name : 'search-image',
     component:() => import("@/views/scanner/SearchImage.vue")
   },
   {
     path : '/process-image',
+    beforeEnter : requireAuth(),
     name : 'process-image',
     component:() => import("@/views/scanner/ProcessImage.vue")
     
   },
   {
     path : "/show-result",
+    beforeEnter : requireAuth(),
     name : "show-result",
     component:() => import("@/views/scanner/ShowResult.vue")
   },
   {
     path: '/typography',
+    
     name: 'typography',
     component: () => import('@/views/typography/Typography.vue'),
   },
