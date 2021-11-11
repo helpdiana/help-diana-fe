@@ -27,7 +27,7 @@
           <v-spacer></v-spacer>
 
           <!-- Right Content -->
-          <v-sacer></v-sacer>
+          <v-spacer></v-spacer>
           <theme-switcher></theme-switcher>
           <v-btn
             icon

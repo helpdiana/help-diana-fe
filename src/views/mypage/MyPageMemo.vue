@@ -1,19 +1,16 @@
 <template>
-  <v-list >
-    <v-list-item-group
-      color="primary"
-    >
-      <v-list-item
-        v-for="(item, i) in items"
-        :key="i"
-      >
-        <v-list-item-content>
-          <span></span>
-          <v-list-item-title class="item-title" v-text="item.text"></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list-item-group>
-  </v-list>
+<div>
+    <v-textarea
+      name="input-7-1"
+      outlined
+      label="memo"
+      auto-grow
+      v-model="memo"
+    ></v-textarea>
+    <v-btn color="primary" class="memo-btn">
+      메모저장
+    </v-btn>
+</div>
 </template>
 
 <script>
@@ -22,6 +19,7 @@ export default {
   components: {
   },
   data: () => ({
+    memo:"",
     items: [
       { text: '폐암 검사지 기록지', icon: 'mdi-clock' },
       { text: '의사 소견서', icon: 'mdi-account' },
@@ -44,12 +42,8 @@ export default {
 </script>
 
 <style lang="scss">
-.v-list-item{
-  padding : 0 0 0 10px;
-  .item-title{
-    font-size : 14px;
-    font-weight: bold;
-  }
+.memo-btn{
+  float: right;
 }
 
 

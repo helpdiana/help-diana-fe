@@ -4,12 +4,12 @@
       color="primary"
     >
       <v-list-item
-        v-for="(item, i) in items"
+        v-for="(diagnose, i) in diagnoselist"
         :key="i"
       >
         <v-list-item-content>
           <span></span>
-          <v-list-item-title class="item-title" v-text="item.text"></v-list-item-title>
+          <v-list-item-title class="item-title" v-text="diagnose"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list-item-group>
@@ -17,8 +17,10 @@
 </template>
 
 <script>
+const moment = require('moment')
 
 export default {
+  props : ['diagnoses'],
   components: {
   },
   data: () => ({
@@ -29,7 +31,14 @@ export default {
     ],
   }),
   computed : {
+    diagnoselist(){
+      let items = []
+      this.diagnoses.forEach((v)=>{
+        items.push(v.name)
+      })
 
+      return items
+    }
   },
   methods : {
 

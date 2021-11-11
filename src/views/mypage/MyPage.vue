@@ -12,16 +12,49 @@
       </v-btn>
       </v-row>
       <v-row>
-        <span class="text-l mb-6">2021.11.12</span>
-        <v-spacer></v-spacer>
-        
+        <span class="text-l mb-6">{{date}}</span>
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="date"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+        <template v-slot:activator="{ on, attrs }">
+        <v-icon @click="menu = !menu" v-bind="attrs" v-on="on" class="text-xl mb-6 pl-3 calendar">
+          {{icons.mdiCalendar}}</v-icon>
+        </template>
+        <v-date-picker
+          v-model="date"
+          no-title
+          scrollable
+        >
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            color="primary"
+            @click="menu = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="getDataDate()"
+          >
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-menu>
       </v-row>
       <v-row>
         <v-col class="mypage-cell" cols="12">
           <span class="text-xl mb-6">나의 기록</span>
         </v-col>
         <v-col class="my-record">
-          <my-page-list></my-page-list>
+          <my-page-list :diagnoses="diagnoses"></my-page-list>
         </v-col>
       </v-row>  
       <v-row>
@@ -29,7 +62,7 @@
           <span class="text-xl mb-6">진료예약</span>
         </v-col>
         <v-col class="my-record">
-          <medical-app></medical-app>
+          <medical-app :clinics="clinics"></medical-app>
         </v-col>
       </v-row>
       <v-row>
@@ -37,7 +70,7 @@
           <span class="text-xl mb-6">검사예약</span>
         </v-col>
         <v-col class="my-record">
-          <test-app></test-app>
+          <test-app :examines="examines"></test-app>
         </v-col>
       </v-row>
       <v-row>
@@ -45,7 +78,7 @@
           <span class="text-xl mb-6">메모</span>
         </v-col>
         <v-col class="my-record">
-          <my-page-memo></my-page-memo>
+          <my-page-memo :memos="memos"></my-page-memo>
         </v-col>
       </v-row>
       <v-row justify="center">
@@ -141,6 +174,7 @@ import MedicalApp from './MedicalApp.vue'
 import TestApp from './TestApp.vue'
 import MyPageMemo from './MyPageMemo.vue'
 import Api from '@/api/api'
+import {mdiCalendar} from '@mdi/js'
 
 const moment = require('moment')
 
@@ -153,15 +187,40 @@ export default {
   },
   data(){
     return {
+      icons : {
+        mdiCalendar
+      },
+      date: moment(new Date(), "YYYY-MM-DD").format("YYYY-MM-DD"),
       dialog: false,
+      menu: false,
       menu2: false,
       isSelecting : false,
       type : "medi",
       name : "",
-      time : ""
+      time : "",
+      
+      diagnoses : [],
+      clinics : [],
+      examines : [],
+      memos : [],
     }
   },
   methods : {
+    getDataDate(){
+      this.$refs.menu.save(this.date)
+
+      let params = {
+        date : this.date
+      }
+
+      Api.getMyPage(params)
+      .then((res) => {
+        this.diagnoses = res.data.diagnoses
+        this.clinics = res.data.clinics
+        this.examines = res.data.examines
+        this.memos = res.data.memos
+      })
+    },
     addInfo(){
       //Modal 띄우기
       this.dialog = true
@@ -173,7 +232,7 @@ export default {
 
       let data = {
         name : this.name,
-        date : "2021-11-11",
+        date : this.date,
         start : startTime,
         end : endTime
       }
@@ -183,15 +242,21 @@ export default {
         Api.addClinic(data)
         .then((res) => {
           this.dialog = false
+          this.name = ""
+          this.time = ""
+          this.type = "medi"
         })
         .catch((err)=>{
           alert("추가에 실패했습니다.")
         })
       }else{
         //검사 예약
-        Api.addClinic(data)
+        Api.addExamine(data)
         .then((res) => {
           this.dialog = false
+          this.name = ""
+          this.time = ""
+          this.type = "medi"
         })
         .catch((err)=>{
           alert("추가에 실패했습니다.")
@@ -200,7 +265,7 @@ export default {
     }
   },
   mounted(){
-    
+    this.getDataDate()
   }
 }
 </script>
@@ -214,6 +279,11 @@ export default {
   }
   .my-record{
     padding : 0;
+  }
+  .calendar{
+    &:hover{
+      cursor: pointer;
+    }
   }
 }
 

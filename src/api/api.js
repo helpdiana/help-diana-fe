@@ -138,7 +138,27 @@ export default {
             data : qs.stringify(data),
             headers : this.requireAuth()
         })
-    }
+    },
+    addExamine(data){
+        return Send({
+            url: `/reserve/add/examine`,
+            method : 'post',
+            data : qs.stringify(data),
+            headers : this.requireAuth()
+        })
+
+    },
+    getMyPage(params){
+        return Send({
+            url: `/myPage`,
+            method : 'get',
+            params : params,
+            headers : this.requireAuth()
+        })
+    },
+    
+    
+
 
 
     

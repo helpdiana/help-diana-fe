@@ -90,6 +90,8 @@ export default {
           console.log(res)
           this.$router.push('show-result')
         })
+      }else{
+        this.$router.push('show-result')
       }
     }
   },

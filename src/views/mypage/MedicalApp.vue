@@ -4,13 +4,13 @@
       color="primary"
     >
       <v-list-item
-        v-for="(item, i) in items"
+        v-for="(clinic, i) in cliniclist"
         :key="i"
       >
         <v-list-item-content>
           <span></span>
           <v-list-item-title class="medical-item-title">
-            <span class="medic-dot"></span>{{item.text}}
+            <span class="medic-dot"></span>{{clinic}}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -19,26 +19,34 @@
 </template>
 
 <script>
+const moment = require('moment')
 
 export default {
+  props : ["clinics"],
   components: {
+
   },
   data: () => ({
-    items: [
-      { text: '10:00~11:00 / 중앙대학교 병원 피부과 / 김태환', icon: 'mdi-clock' },
-      { text: '10:30~11:00 / 중앙대학교 신경외과 / 김보경', icon: 'mdi-account' },
-      { text: '12:00 ~ 13:00 / 중앙대학교 정신과 / 김상렬', icon: 'mdi-account' },
-      { text: '15:00 ~ 16:00 / 중앙대학교 병원 안과 / 채희선', icon: 'mdi-account' },
-    ],
   }),
   computed : {
+    cliniclist(){
+      let items = []
+      this.clinics.forEach((v)=>{
+        let time = `${moment(v.startTime, "HH:mm").format("HH:mm")} 
+        ~ ${moment(v.endTime, "HH:mm").format("HH:mm") }`
+        let text = `${v.name}`
+        items.push(`${time} / ${text}`)
+      })
 
+      return items
+    }
   },
   methods : {
 
   },
   mounted(){
-
+    console.log(this.clinics)
+    console.log(this.cliniclist)
   },
   created(){
 
