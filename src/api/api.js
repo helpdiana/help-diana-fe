@@ -117,7 +117,7 @@ export default {
     },
     updateDiagnoseTranslate(data){
         return Send({
-            url: `/api/diagnose/translate/update`,
+            url: `/diagnose/translate/update`,
             method : 'post',
             data : data,
             headers : this.requireAuth()
@@ -131,6 +131,15 @@ export default {
             headers : this.requireAuth()
         })
     },
+    addClinic(data){
+        return Send({
+            url: `/reserve/add/clinic`,
+            method : 'post',
+            data : qs.stringify(data),
+            headers : this.requireAuth()
+        })
+    }
+
 
     
 

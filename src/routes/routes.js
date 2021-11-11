@@ -19,6 +19,7 @@ const requireAuth = () => (from, to, next) => {
 
 
 const routes = [
+  //여기서부터 helpdiana
   {
     path: '/',
     beforeEnter : requireAuth(),
@@ -56,6 +57,14 @@ const routes = [
     name : "show-result",
     component:() => import("@/views/scanner/ShowResult.vue")
   },
+  {
+    path : "/mypage",
+    beforeEnter : requireAuth(),
+    name : "mypage",
+    component:() => import("@/views/mypage/MyPage.vue")
+  }
+  //여기까지가 helpdiana
+  ,
   {
     path: '/typography',
     

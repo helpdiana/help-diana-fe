@@ -69,6 +69,7 @@ export default {
       }
       Api.getDiagnoseOCR(data)
       .then((res) => {
+        console.log(res.data)
         this.rawText = res.data.diagnose_bf[0]
         this.processData()
       })
@@ -88,16 +89,12 @@ export default {
         .then((res) => {
           console.log(res)
           this.$router.push('show-result')
-
         })
-        
       }
-      //this.$router.push('show-result')
     }
-
   },
   mounted(){
-    //this.processData()
+
     console.log(this.diagnose)
     this.getDiagnoseOCR()
   },

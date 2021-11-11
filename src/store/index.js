@@ -10,9 +10,9 @@ export default new Vuex.Store({
     accessToken : null,
 
     diagnose : {
-      diagnose_id : 18,
-      diagnose_name : "harry",
-      diagnose_date : "2021-11-05",
+      diagnose_id : "",
+      diagnose_name : "",
+      diagnose_date : "",
     }
   },
   getters:{

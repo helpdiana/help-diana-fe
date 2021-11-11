@@ -5,7 +5,7 @@
       <v-btn class="mr-1" color="primary" small @click="saveResult()">결과 저장</v-btn>
       <v-btn class="mr-1" color="primary" small @click="requestQuestion()">설명 요청</v-btn>
       <v-btn class="mr-1" color="success" small @click="saveReportResult()">
-        <v-icon>{{icons.mdiFileDocument}}</v-icon>보고서 저장</v-btn>
+        <v-icon>{{icons.mdiFileDocument}}</v-icon>보고서 확인</v-btn>
     </v-row>
     <v-row>
       <v-col class="result-body">

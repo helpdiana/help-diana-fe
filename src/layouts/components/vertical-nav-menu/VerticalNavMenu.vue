@@ -53,6 +53,12 @@
         :icon="icons.mdiCamera"
       >
       </nav-menu-link>
+      <nav-menu-link
+        title="My Page"
+        :to="{name:'mypage'}"
+        :icon="icons.mdiAccount"
+      >
+      </nav-menu-link>
       <!-- <nav-menu-group
         title="Pages"
         :icon="icons.mdiFileOutline"
@@ -127,7 +133,8 @@ import {
   mdiFileOutline,
   mdiFormSelect,
   mdiAccountCogOutline,
-  mdiCamera
+  mdiCamera,
+  mdiAccount
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -157,6 +164,7 @@ export default {
         mdiFormSelect,
         mdiAccountCogOutline,
         mdiCamera,
+        mdiAccount
       },
     }
   },
