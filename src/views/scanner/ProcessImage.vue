@@ -10,81 +10,96 @@
       name="input-7-1"
       filled
       auto-grow
-     :value="ocrText"
+      :readonly="readable"
+     v-model="ocrText"
       ></v-textarea>
     </v-row>
 </v-container>
 </template>
 
 <script>
+import Api from '@/api/api'
 export default {
   components : {
   },
   data(){
     return {
       ocrText : "",
-      rawText : [
-		[
-			" [검사명] 흡인세포병리검사(TBNA) [BP2C06] 【구분】 입원 [최종보고] [판독의1] 【검체】 Lymph."
-		],
-		[
-			"node [병리번호] P2022967 결론 및 진단 (219350) Received specimen status: 4 unstained slides in alcohol-fixed 1."
-		],
-		[
-			"2 H&E 2 PAP Lymph node."
-		],
-		[
-			"mass#1."
-		],
-		[
-			"EBUS-transbrcnchial needle biopsy : Positive for malignant cells Consistent with CARCINOMA [검사명] 생검 1~3개 [BP1A101] 【구분】 입원 [최종보고] [판독의1] [검체] Lymph node [병리번호] S2027692 결론 및 진단 (219350) 1."
-		],
-		[
-			"Lymph node."
-		],
-		[
-			"mass#1."
-		],
-		[
-			"EBUS-transbrnchial needle biopsy : Metastatic poorly differentiated carcinoma Addendum (J20-06057)."
-		],
-		[
-			"2020-07-16 >> (207876) Specimen condition: paraffin block << Results of immunohistochemistry (J20-6057) ."
-		],
-		[
-			"ALK CDx assay(동반진단검사): Negative Staining for positive and negative control."
-		],
-		[
-			"and negative reagent control was performed."
-		],
-		[
-			"All controls show appropriate reactivity."
-		]
-	]
-
+      rawText : "",
+      readable : true,
+      isedit : false,
     }
   },
-  computed :{
-    
+  computed : {
+    diagnose(){
+      return this.$store.state.diagnose
+    }
   },
   methods:{
     processData(){
-      
       for(let i = 0 ; i< this.rawText.length; i++){
         this.ocrText += this.rawText[i]
-        this.ocrText += "\n\n"
+        if(i != this.rawText.length - 1){
+          this.ocrText += "\n"
+        }
       }
     },
-    editText(){
+    processDataText(){
 
+      let tmp = []
+      let diagnose_bf = this.ocrText.split("\n")
+      diagnose_bf.forEach((v, i) => {
+        tmp.push([v])
+      })
+
+      let edited_diagnose_bf = {
+        diagnose_bf : [tmp]
+      }
+
+      return JSON.stringify(edited_diagnose_bf)
+    }, 
+    editText(){
+      this.readable = !this.readable
+      this.isedit = true
+      
     },
+    getDiagnoseOCR(){
+      let data = {
+        diagnose_id : this.diagnose.diagnose_id
+      }
+      Api.getDiagnoseOCR(data)
+      .then((res) => {
+        this.rawText = res.data.diagnose_bf[0]
+        this.processData()
+      })
+    },
+
+
     showResult(){
-      this.$router.push('show-result')
+      if(this.isedit){
+        let processDataText = this.processDataText()
+        let data = {
+          diagnose_id : this.diagnose.diagnose_id,
+          name : this.diagnose.diagnose_name,
+          date : this.diagnose.diagnose_date,
+          newJson : processDataText
+        }
+        Api.updateDiagnoseOCR(data)
+        .then((res) => {
+          console.log(res)
+          this.$router.push('show-result')
+
+        })
+        
+      }
+      //this.$router.push('show-result')
     }
 
   },
   mounted(){
-    this.processData()
+    //this.processData()
+    console.log(this.diagnose)
+    this.getDiagnoseOCR()
   },
   created(){
   }

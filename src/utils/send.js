@@ -62,6 +62,8 @@ instance.interceptors.response.use(
     },
 
     function (error) {
+        console.log("에러")
+        console.log(error)
         switch(error.response.status){
             /*
             case 401:

@@ -8,6 +8,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     accessToken : null,
+
+    diagnose : {
+      diagnose_id : 18,
+      diagnose_name : "harry",
+      diagnose_date : "2021-11-05",
+    }
   },
   getters:{
     isAuthenticated (state) {
@@ -16,6 +22,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    storeDiagnose(state, diagnose){
+      state.diagnose = diagnose
+    },
     LOGIN (state, {accessToken}) {
       state.accessToken = accessToken
       localStorage.accessToken = accessToken

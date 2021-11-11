@@ -198,17 +198,30 @@ export default {
         name : this.dia_name,
         date : this.dia_date
       }
+      console.log("프로세스 이미지")
       Api.addDiagnose(data)
       .then((res) => {
         this.dialog = false
+        
+        console.log(res)
+
+        
+        
+        let store_data = {
+          diagnose_id : res.data.id,
+          diagnose_name : data.name,
+          diagnose_date : data.date
+        }
+      
+        console.log(store_data)
+        this.$store.commit("storeDiagnose", store_data)
         this.$router.push('process-image')
+        
       })
       .catch((err) => {
+        console.log(err)
         alert("업로드 오류 발생!")
       })
-
-
-      //this.$router.push('process-image')
     },
     deleteImage(index){
       if(index > -1){

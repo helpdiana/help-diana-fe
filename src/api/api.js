@@ -21,7 +21,7 @@ export default {
         if(type == "file"){
             // 사진 업로드시 파일을 업로드 한다는 것을 명시해주세요.
             console.log("멀티파트")
-            content = "multipart/form-data; boundary=----myboundary"
+            content = "multipart/form-data;"
         }else{
             content = "application/x-www-form-urlencoded"
         }
@@ -73,17 +73,65 @@ export default {
         })
     },
     addDiagnose(data){
+        console.log(data)
         var bodyFormData = new FormData();
         //multipart data일 경우 FormData를 사용해서 넣습니다.
-        bodyFormData.append("files", [data.files])
+        data.files.forEach((v, i)=>{
+            //사진 올리기
+            bodyFormData.append("files", v)
+        })
         bodyFormData.append("name", data.name);
         bodyFormData.append("date", data.date)
+
         return Send({
             url: `/diagnose/add`,
             method : 'post',
+            timeout: 30000,
             data : bodyFormData,
             headers : this.requireAuth('file')
         })
-    }
+    },
+    getDiagnoseOCR(params){
+        return Send({
+            url: `/diagnose/ocr`,
+            method : 'get',
+            params : params,
+            headers : this.requireAuth()
+        })
+    },
+    updateDiagnoseOCR(data){
+        return Send({
+            url: `/diagnose/ocr/update`,
+            method : 'put',
+            data : qs.stringify(data),
+            headers : this.requireAuth()
+        })
+    },
+    getDiagnoseTranslate(params){
+        return Send({
+            url: `/diagnose/translate`,
+            method : 'get',
+            params : params,
+            headers : this.requireAuth()
+        })
+    },
+    updateDiagnoseTranslate(data){
+        return Send({
+            url: `/api/diagnose/translate/update`,
+            method : 'post',
+            data : data,
+            headers : this.requireAuth()
+        })
+    },
+    getDiagnoseAll(params){
+        return Send({
+            url: `/diagnose/highlight`,
+            method : 'get',
+            params : params,
+            headers : this.requireAuth()
+        })
+    },
+
+    
 
 }
