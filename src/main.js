@@ -3,6 +3,7 @@ import '@/styles/styles.scss'
 import Vue from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
+import VueApexCharts from 'vue-apexcharts'
 //axios
 import axios from 'axios'
 //google oauth2
@@ -14,6 +15,8 @@ import store from "./store";
 
 import vuetify from "./plugins/vuetify";
 
+Vue.use(VueApexCharts)
+Vue.component('apexchart', VueApexCharts)
 Vue.use(GAuth, {clientId: process.env.VUE_APP_GOOGLE_KEY, scope: 'profile email', prompt:'select_account'})
 
 Vue.config.productionTip = false;

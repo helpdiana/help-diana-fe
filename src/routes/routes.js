@@ -62,6 +62,12 @@ const routes = [
     beforeEnter : requireAuth(),
     name : "mypage",
     component:() => import("@/views/mypage/MyPage.vue")
+  },
+  {
+    path : "/report",
+    beforeEnter : requireAuth(),
+    name : "report",
+    component:() => import("@/views/report/ReportContainer.vue")
   }
   //여기까지가 helpdiana
   ,
