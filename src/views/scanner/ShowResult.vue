@@ -15,10 +15,10 @@
             :key="i"
           >
             <v-expansion-panel-header class="panel-header">
-              <div class="process-trans-text">{{processTransText[i]}}</div>
+              <div class="process-trans-text">{{processTransText[i-1]}}</div>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="panel-content">
-              <div class="process-raw-text">{{processRawText[i]}}</div>
+              <div class="process-raw-text">{{processRawText[i-1]}}</div>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>

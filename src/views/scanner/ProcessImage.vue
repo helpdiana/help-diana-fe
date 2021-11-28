@@ -5,12 +5,30 @@
       <v-btn color="primary mr-2" small @click="editText()"> 텍스트 수정</v-btn>
       <v-btn color="success" small @click="showResult()">결과 보기</v-btn>
     </v-row>
-    <v-row class="ocr-textarea">
+    <v-row v-if="!iseditting" class="ocr-list">
+      <v-list class="ocr-list-content">
+        <template v-for="(item, index) in editedText">
+          <v-list-item :key="index">
+            <v-list-item-content>
+              <v-list-item-title class="item-text" v-text="item"></v-list-item-title>
+              <v-divider></v-divider>
+            </v-list-item-content>
+          </v-list-item>
+            <v-divider
+              v-if="index < items.length - 1"
+              :key="index"
+            ></v-divider>
+        </template>
+      </v-list>
+    </v-row>
+    <v-row v-else class="ocr-textarea">
       <v-textarea
+      class="ocr-textarea-inside"
       name="input-7-1"
-      filled
+      outlined
       auto-grow
-      :readonly="readable"
+      :hide-details="true"
+      :readonly="false"
      v-model="ocrText"
       ></v-textarea>
     </v-row>
@@ -26,8 +44,22 @@ export default {
     return {
       ocrText : "",
       rawText : "",
+      editedText : "",
       readable : true,
       isedit : false,
+      iseditting : false,
+
+      items: [
+        { text: 'Real-Time'},
+        { text: 'Audience'},
+        { text: 'Conversions'},
+      ],
+    }
+  },
+  watch : {
+    ocrText(){
+      this.editedText = this.ocrText.split("\n")
+      console.log(this.editedText)
     }
   },
   computed : {
@@ -51,7 +83,6 @@ export default {
       diagnose_bf.forEach((v, i) => {
         tmp.push([v])
       })
-
       let edited_diagnose_bf = {
         diagnose_bf : [tmp]
       }
@@ -59,8 +90,8 @@ export default {
       return JSON.stringify(edited_diagnose_bf)
     }, 
     editText(){
-      this.readable = !this.readable
       this.isedit = true
+      this.iseditting = !this.iseditting
       
     },
     getDiagnoseOCR(){
@@ -77,8 +108,10 @@ export default {
 
 
     showResult(){
+      console.log("asdf")
+      let processDataText = this.processDataText()
       if(this.isedit){
-        let processDataText = this.processDataText()
+        console.log(processDataText)
         let data = {
           diagnose_id : this.diagnose.diagnose_id,
           name : this.diagnose.diagnose_name,
@@ -87,7 +120,6 @@ export default {
         }
         Api.updateDiagnoseOCR(data)
         .then((res) => {
-          console.log(res)
           this.$router.push('show-result')
         })
       }else{
@@ -106,7 +138,28 @@ export default {
 </script>
 
 <style lang="scss">
+.ocr-list{
+  margin-top : 30px !important;
+  .ocr-list-content{
+    width : 100%;
+    padding : 0;
+    border-radius: 5px;
+
+    .item-text{
+      line-height : 1.6;
+      font-size : 14px;
+      font-weight : 600;
+      overflow : visible;
+      white-space : normal;
+
+    }
+    
+  }
+}
 .ocr-textarea{
   margin-top:30px !important;
+  .ocr-textarea-inside{
+    background : white;
+  }
 }
 </style>

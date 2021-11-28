@@ -128,8 +128,12 @@ export default {
     googleLogin(){
         this.$gAuth.signIn()
         .then((GoogleUser) => {
+          console.log(GoogleUser)
+          console.log(GoogleUser.wc)
+          console.log(GoogleUser.wc.access_token)
+          console.log("logging")
           let data = {
-            access_token : GoogleUser.Zb.access_token
+            access_token : GoogleUser.wc.access_token
           }
           console.log(data)
           Api.googleLoginDirect(data)

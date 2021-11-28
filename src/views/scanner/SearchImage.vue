@@ -127,8 +127,10 @@
           </v-btn>
           <v-btn
             color="blue darken-1"
+            :loading="loading"
+            :disabled="loading"
             text
-            @click="processImage()"
+            @click="loader='loading'; processImage()"
           >
             Save
           </v-btn>
@@ -159,6 +161,9 @@ export default {
       dia_date : (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       dialog: false,
       menu2: false,
+
+      loading : false,
+      loader : null,
     }
   },
   computed :{
@@ -193,6 +198,9 @@ export default {
     },
     processImage(){
 
+      const l = this.loader
+      this[l] = !this[l]
+
       let data = {
         files : this.images,
         name : this.dia_name,
@@ -201,11 +209,7 @@ export default {
       console.log("프로세스 이미지")
       Api.addDiagnose(data)
       .then((res) => {
-        this.dialog = false
-        
-        console.log(res)
-
-        
+        this.dialog = null
         
         let store_data = {
           diagnose_id : res.data.id,
@@ -217,9 +221,15 @@ export default {
         this.$store.commit("storeDiagnose", store_data)
         this.$router.push('process-image')
         
+        this[l] = false
+        this.loader = null
+        
       })
       .catch((err) => {
+        
         console.log(err)
+        this[l] = false
+        this.loader = null
         alert("업로드 오류 발생!")
       })
     },
@@ -256,8 +266,15 @@ export default {
   }
 }
 .empty-message{
-  position: relative;
-  top: 30vh;
+  // position: relative;
+  // top: 30vh;
+  margin-top : 30px !important;
+  min-height : calc(95vh - 150px);
+  background : white;
+  border-radius : 10px;
+  border-style : dashed;
+  border-color : #dfdfdf;
+
 }
 
 </style>
