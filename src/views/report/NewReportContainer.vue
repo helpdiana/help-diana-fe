@@ -11,8 +11,9 @@
   </v-row>
   <v-card>
     <div ref="document">
-    <div class="report-img-container" >
-      <img class="report-img" :src="require(`@/assets/images/logos/helpdiana-new.png`)"/>
+    <div class="report-img-container" style="padding-top:20px">
+      <img class="report-img" :src="require(`@/assets/images/logos/helpdiana-new.png`)"
+      style="display : block; width : 100px; margin : 0px auto"/>
     </div>
     <v-card-title class="align-start">
       <span>{{report_title}}</span>
@@ -24,19 +25,19 @@
 
     <v-card-text class="report-body">
       <v-row v-for="i in rawText.length" :key="i">
-        <v-col cols="12" class="index">
+        <v-col cols="12" class="index" style="padding : 12px 12px 0 12px;">
           <span> #{{ i }} </span>
         </v-col>
-        <v-col cols="12" class="cell origin">
-          <span class="report-span-header">원문</span>
+        <v-col cols="12" class="cell origin" style="color : black; margin : 0 0 5px 0; background : #fafafa; border-radius : 7px;">
+          <span class="report-span-header" style="display : block; font-size : 10px; color : #001489; font-weight : 600;">원문</span>
           <span>{{ processRawText[i-1] }}</span>
         </v-col>
-        <v-col cols="12" class="cell edit">
-          <span class="report-span-header">다이애나 해석</span>
+        <v-col cols="12" class="cell edit" style="color : black; margin : 0 0 5px 0; background : #f6fdff; border-radius : 7px;">
+          <span class="report-span-header" style="display : block; font-size : 10px; color : #001489; font-weight : 600;">다이애나 해석</span>
           <span>{{ processTransText[i-1] }}</span>
         </v-col>
-        <v-col cols="12" class="cell highlight">
-          <span class="report-span-header">다이애나 하이라이트</span>
+        <v-col cols="12" class="cell highlight" style="color : black; margin : 0 0 5px 0; background : #f8f8fd; border-radius : 7px;">
+          <span class="report-span-header" style="display : block; font-size : 10px; color : #001489; font-weight : 600;">다이애나 하이라이트</span>
           <span>{{highlight_text[i-1]}}</span>
         </v-col>
       </v-row>
@@ -79,17 +80,17 @@ export default {
     downloadPdf(){
       console.log("download")
 			html2pdf(this.$refs.document, {
-				margin: 1,
+				margin: 0.5,
 				filename: 'diana.pdf',
 				image: { type: 'jpeg', quality: 2 },
-				html2canvas: { scale: 0.8,dpi: 500, letterRendering: true, allowTaint: true, useCORS: true },
-				jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compressPDF:true }
+				html2canvas: { scale: 0.9,dpi: 500, scale:4,letterRendering: true, allowTaint: true, useCORS: true },
+				jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait',  }
 			})
     },
     getDiagnoseAll(){
       let data = {
-        //diagnose_id : this.diagnose.diagnose_id
-        diagnose_id : 140
+        diagnose_id : this.diagnose.diagnose_id
+        //diagnose_id : 140
       }
       Api.getDiagnoseAll(data)
       .then((res) => {
@@ -101,8 +102,8 @@ export default {
 
     getHighlightWord(){
       let data = {
-        //diagnose_id : this.diagnose.diagnose_id
-        diagnose_id : 140
+        diagnose_id : this.diagnose.diagnose_id
+        //diagnose_id : 140
       }
       Api.getDiagnoseEngOCR(data)
       .then((res) => {
@@ -140,8 +141,8 @@ export default {
       console.log(this.highlight_text)
     },
     initialize(){
-      //this.report_title = this.diagnose.diagnose_name
-      //this.report_date = this.diagnose.diagnose_date
+      this.report_title = this.diagnose.diagnose_name
+      this.report_date = this.diagnose.diagnose_date
 
       this.rawText = []
       this.trans_after = []
