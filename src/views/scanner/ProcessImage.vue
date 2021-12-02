@@ -3,7 +3,21 @@
     <v-row><p class="text-2xl mb-6"> 텍스트 추출 결과 확인 </p></v-row>
     <v-row>
       <v-btn color="primary mr-2" small @click="editText()"> 텍스트 수정</v-btn>
-      <v-btn color="success" small @click="showResult()">결과 보기</v-btn>
+      <v-btn color="success mr-2" small @click="showResult()">결과 보기</v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            size="25"
+            color="primary"
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
+            mdi-information-outline
+          </v-icon>
+        </template>
+        <span>{{tooltipContext}}</span>
+      </v-tooltip>
     </v-row>
     <v-row v-if="!iseditting" class="ocr-list">
       <v-list class="ocr-list-content">
@@ -48,6 +62,7 @@ export default {
       readable : true,
       isedit : false,
       iseditting : false,
+      tooltipContext : '원본 진단서 사진을 참고하여 잘못 추출된 text를 수정해 주세요. 원본 진단서 사진과 같은 줄바꿈 또는 한 문장씩 줄바꿈을 해 주시면 더 좋은 진단서 번역을 받을 수 있습니다.',
 
       items: [
         { text: 'Real-Time'},
