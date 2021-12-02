@@ -68,6 +68,9 @@ export default {
         this.rawText = res.data[0].diagnose_bf[0]
         this.trans_after = res.data[1].diagnose_af[0]
       })
+    },
+    saveReportResult(){
+      this.$router.push("report")
     }
 
   },

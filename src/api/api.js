@@ -1,6 +1,6 @@
 // 파일경로: src/api/api.js
 // 작성한 axios 인터셉터를 가져옵니다.
-import Send from '../utils/send'
+import {Send, CustomSend} from '../utils/send'
 import store from '../store'
 import qs from 'qs';
 import { identity } from 'lodash';
@@ -22,7 +22,11 @@ export default {
             // 사진 업로드시 파일을 업로드 한다는 것을 명시해주세요.
             console.log("멀티파트")
             content = "multipart/form-data;"
-        }else{
+        }else if(type == "json"){
+            // fastapi content type json
+            content = "application/json"
+        }
+        else{
             content = "application/x-www-form-urlencoded"
         }
         const headers = {
@@ -99,6 +103,15 @@ export default {
             headers : this.requireAuth()
         })
     },
+    getDiagnoseEngOCR(params){
+        return Send({
+            url: `/diagnose/eng`,
+            method : 'get',
+            params : params,
+            headers : this.requireAuth()
+        })
+    },
+
     updateDiagnoseOCR(data){
         return Send({
             url: `/diagnose/ocr/update`,
@@ -157,6 +170,16 @@ export default {
         })
     },
     
+    //from here fastapi server
+    
+    getHighlightWord(data){
+        return CustomSend({
+            url: `/tokenizer`,
+            method : 'post',
+            data : data,
+            headers : this.requireAuth("json")
+        })
+    }
     
 
 

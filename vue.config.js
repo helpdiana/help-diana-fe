@@ -26,6 +26,10 @@ module.exports = {
             target: 'https://helpdiana.site',
             changeOrigin : true,
 
+        },
+        '/algo-api' : {
+          target: 'https://helpdiana.site',
+          changeOrigin : true,
         }
     }
   },
