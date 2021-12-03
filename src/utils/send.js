@@ -9,7 +9,7 @@ import store from '../store/index'
     https://github.com/axios/axios 의 Request Config 챕터 확인
 */
 const Send = axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL,
+    baseURL: process.env.VUE_APP_BASE_URL_MAIN,
     //https://helpdiana.site/api
     //http://localhost:8081/api
     timeout: 10000,
@@ -23,7 +23,7 @@ const Send = axios.create({
 
 
 const CustomSend = axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL,
+    baseURL: process.env.VUE_APP_BASE_URL_SUB,
     //https://helpdiana.site/api
     //https://startroad.me/api
     timeout: 10000,

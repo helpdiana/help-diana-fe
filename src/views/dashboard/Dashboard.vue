@@ -8,9 +8,9 @@
     </v-col>
     <v-col
       cols="12"
-      md="8"
+      md="4"
     >
-      <dashboard-statistics-card></dashboard-statistics-card>
+      <dashboard-doctor></dashboard-doctor>
     </v-col>
 
 
@@ -30,6 +30,7 @@ import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.v
 import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
 import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
 import DashboardDatatable from './DashboardDatatable.vue'
+import DashboardDoctor from './DashboardDoctor.vue'
 
 export default {
   components: {
@@ -41,6 +42,7 @@ export default {
     DashboardCardSalesByCountries,
     DashboardWeeklyOverview,
     DashboardDatatable,
+    DashboardDoctor,
   },
   setup() {
     const totalProfit = {

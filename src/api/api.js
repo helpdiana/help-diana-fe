@@ -131,8 +131,8 @@ export default {
     updateDiagnoseTranslate(data){
         return Send({
             url: `/diagnose/translate/update`,
-            method : 'post',
-            data : data,
+            method : 'put',
+            data : qs.stringify(data),
             headers : this.requireAuth()
         })
     },
@@ -170,8 +170,24 @@ export default {
         })
     },
     
-    //from here fastapi server
+    postRequestDoctor(data){
+        return Send({
+            url: `/diagnose/request`,
+            method : 'post',
+            data : qs.stringify(data),
+            headers : this.requireAuth()
+        })
+    },
+
+    getDiagnoseList(){
+        return Send({
+            url: `/doctor`,
+            method : 'get',
+            headers : this.requireAuth()
+        })
+    },
     
+    //from here fastapi server
     getHighlightWord(data){
         return CustomSend({
             url: `/tokenizer`,
@@ -180,6 +196,8 @@ export default {
             headers : this.requireAuth("json")
         })
     }
+    
+    //end here fastapi server
     
 
 

@@ -13,7 +13,7 @@
             v-bind="attrs"
             v-on="on"
           >
-            mdi-information-outline
+            {{icons.mdiInformationOutline}}
           </v-icon>
         </template>
         <span>{{tooltipContext}}</span>
@@ -51,11 +51,15 @@
 
 <script>
 import Api from '@/api/api'
+import { mdiInformationOutline } from '@mdi/js'
 export default {
   components : {
   },
   data(){
     return {
+      icons : {
+        mdiInformationOutline
+      },
       ocrText : "",
       rawText : "",
       editedText : "",

@@ -2,7 +2,7 @@
 <v-container>
     <v-row><p class="text-2xl mb-6"> 결과보기 </p></v-row>
     <v-row>
-      <v-btn class="mr-1" color="primary" small @click="saveResult()">결과 저장</v-btn>
+      <!--<v-btn class="mr-1" color="primary" small @click="saveResult()">결과 저장</v-btn> -->
       <v-btn class="mr-1" color="primary" small @click="requestQuestion()">설명 요청</v-btn>
       <v-btn class="mr-1" color="success" small @click="saveReportResult()">
         <v-icon>{{icons.mdiFileDocument}}</v-icon>보고서 확인</v-btn>
@@ -58,8 +58,25 @@ export default {
     }
   },
   methods:{
+    requestQuestion(){
+      let data = {
+        diagnose_id : this.diagnose.diagnose_id
+        //diagnose_id : 140,
+      }
+      
+      Api.postRequestDoctor(data)
+      .then((res) => {
+        console.log(res)
+        alert("의사에게 설명 요청이 완료되었습니다.")
+      })
+      .catch((err)=>{
+        alert("요청에 실패하였습니다.")
+      })
+
+    },
     getDiagnoseAll(){
       let data = {
+        //diagnose_id : 140
         diagnose_id : this.diagnose.diagnose_id
       }
       Api.getDiagnoseAll(data)
