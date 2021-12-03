@@ -1,14 +1,22 @@
 <template>
   <v-row>
+    <v-col  cols="12" class="hello-comment">
+      Hello. I'm DIANA.
+    </v-col>
+    <v-col cols="12" md="4" v-if="!isColdStart">
+      <dashboard-cold-start :person=personalData></dashboard-cold-start>
+    </v-col>
     <v-col
       cols="12"
       md="4"
+      v-if="isColdStart"
     >
       <dashboard-congratulation-john></dashboard-congratulation-john>
     </v-col>
     <v-col
       cols="12"
       md="4"
+      v-if="isDoctor"
     >
       <dashboard-doctor></dashboard-doctor>
     </v-col>
@@ -18,6 +26,9 @@
 </template>
 
 <script>
+
+import Api from '@/api/api'
+
 // eslint-disable-next-line object-curly-newline
 import { mdiPoll, mdiLabelVariantOutline, mdiCurrencyUsd, mdiHelpCircleOutline } from '@mdi/js'
 import StatisticsCardVertical from '@/components/statistics-card/StatisticsCardVertical.vue'
@@ -31,6 +42,7 @@ import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
 import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
 import DashboardDatatable from './DashboardDatatable.vue'
 import DashboardDoctor from './DashboardDoctor.vue'
+import DashboardColdStart from './DashboardColdStart.vue'
 
 export default {
   components: {
@@ -43,6 +55,7 @@ export default {
     DashboardWeeklyOverview,
     DashboardDatatable,
     DashboardDoctor,
+    DashboardColdStart
   },
   setup() {
     const totalProfit = {
@@ -89,5 +102,49 @@ export default {
       salesQueries,
     }
   },
+
+  data(){
+    return {
+      isDoctor : false,
+      name : "",
+      personalData : null,
+      isColdStart : true,
+
+    }
+  },
+  computed : {
+    
+  },
+  methods : {
+    getProfile(){
+      Api.getProfile()
+      .then((res) => {
+        this.personalData = res.data
+        console.log(this.personalData)
+        if(this.personalData.doctor == "null"){
+          this.isColdStart = false
+        }else if(this.personalData.doctor == 1){
+          this.isDoctor = true
+        }else{
+          this.isDoctor = false
+        }
+      })
+      .catch((err)=>{
+        alert("서버오류!")
+      })
+    }
+  },
+  mounted(){
+  },
+  created(){
+    this.getProfile()
+  }
 }
 </script>
+<style lang="scss">
+.hello-comment{
+  font-size : 2rem;
+  font-weight : bold;
+  color : #001489;
+}
+</style>

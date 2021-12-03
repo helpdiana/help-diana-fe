@@ -186,7 +186,21 @@ export default {
             headers : this.requireAuth()
         })
     },
-    
+    getProfile(){
+        return Send({
+            url: `/user`,
+            method : 'get',
+            headers : this.requireAuth()
+        })
+    },
+    updateProfile(data){
+        return Send({
+            url: `/user/update`,
+            method : 'put',
+            data : qs.stringify(data),
+            headers : this.requireAuth()
+        })
+    },
     //from here fastapi server
     getHighlightWord(data){
         return CustomSend({

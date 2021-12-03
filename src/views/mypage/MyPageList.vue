@@ -7,9 +7,9 @@
         v-for="(diagnose, i) in diagnoselist"
         :key="i"
       >
-        <v-list-item-content>
+        <v-list-item-content @click="gotoResult(diagnose)">
           <span></span>
-          <v-list-item-title class="item-title" v-text="diagnose"></v-list-item-title>
+          <v-list-item-title class="item-title" v-text="diagnose.name"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list-item-group>
@@ -32,16 +32,21 @@ export default {
   }),
   computed : {
     diagnoselist(){
-      let items = []
-      this.diagnoses.forEach((v)=>{
-        items.push(v.name)
-      })
 
-      return items
+      return this.diagnoses
     }
   },
   methods : {
+    gotoResult(i){
+      let store_data = {
+        diagnose_id : i.id,
+        diagnose_name : i.name,
+        diagnose_date : i.date
+      }
 
+      this.$store.commit("storeDiagnose", store_data)
+      this.$router.push('show-result')
+    }
   },
   mounted(){
 

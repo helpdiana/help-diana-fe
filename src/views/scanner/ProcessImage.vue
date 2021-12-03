@@ -29,7 +29,7 @@
             </v-list-item-content>
           </v-list-item>
             <v-divider
-              v-if="index < items.length - 1"
+              v-if="index < editedText.length - 1"
               :key="index"
             ></v-divider>
         </template>

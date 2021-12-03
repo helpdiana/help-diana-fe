@@ -69,6 +69,19 @@ const routes = [
     name : "report",
     //component:() => import("@/views/report/ReportContainer.vue")
     component:() => import("@/views/report/NewReportContainer.vue")
+  },
+  {
+    path : "/diagnose-list",
+    beforeEnter : requireAuth(),
+    name : "diagnose-list",
+    component:() => import("@/views/diagnose-list/DiagnoseList.vue")
+  },
+  {
+    path : "/diagnose-edit",
+    beforeEnter : requireAuth(),
+    name : "diagnose-edit",
+    component:() => import("@/views/diagnose-list/DiagnoseEdit.vue"),
+    
   }
   //여기까지가 helpdiana
   ,
