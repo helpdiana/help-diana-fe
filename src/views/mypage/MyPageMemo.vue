@@ -16,7 +16,7 @@
 <script>
 import Api from '@/api/api'
 export default {
-  props : ["memos"],
+  props : ["memos", "date"],
   components: {
   },
   watch : {
@@ -40,12 +40,12 @@ export default {
     initialize(){
       this.inner_memo = ""
       this.inner_memo = this.memos.memo
-      console.log(this.inner_memo)
+
     },
     updateMemo(){
       
       let data = {
-        date : this.memos.date,
+        date : this.date,
         memo : this.inner_memo
       }
       Api.updateMemo(data)

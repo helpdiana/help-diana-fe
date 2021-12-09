@@ -13,10 +13,6 @@
           <span></span>
           <v-list-item-title class="item-title" v-text="diagnose.name"></v-list-item-title>
         </v-list-item-content>
-        <v-divider
-          v-if="index < diagnoselist.length - 1"
-          :key="index"
-        ></v-divider>
       </v-list-item>
     </v-list-item-group>
   </v-list>

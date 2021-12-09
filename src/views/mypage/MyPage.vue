@@ -78,7 +78,7 @@
           <span class="text-xl mb-6">메모</span>
         </v-col>
         <v-col class="my-record">
-          <my-page-memo :memos="memos"></my-page-memo>
+          <my-page-memo :memos="memos" :date="date"></my-page-memo>
         </v-col>
       </v-row>
       <v-row justify="center">
