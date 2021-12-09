@@ -51,7 +51,7 @@
       </v-row>
       <v-row>
         <v-col class="mypage-cell" cols="12">
-          <span class="text-xl mb-6">나의 기록</span>
+          <span class="text-xl mb-6">나의 기록({{diagnoses.length}})</span>
         </v-col>
         <v-col class="my-record">
           <my-page-list :diagnoses="diagnoses"></my-page-list>
@@ -59,7 +59,7 @@
       </v-row>  
       <v-row>
         <v-col class="mypage-cell" cols="12">
-          <span class="text-xl mb-6">진료예약</span>
+          <span class="text-xl mb-6">진료예약({{clinics.length}})</span>
         </v-col>
         <v-col class="my-record">
           <medical-app :clinics="clinics"></medical-app>
@@ -67,7 +67,7 @@
       </v-row>
       <v-row>
         <v-col class="mypage-cell" cols="12">
-          <span class="text-xl mb-6">검사예약</span>
+          <span class="text-xl mb-6">검사예약({{examines.length}})</span>
         </v-col>
         <v-col class="my-record">
           <test-app :examines="examines"></test-app>
@@ -218,7 +218,8 @@ export default {
         this.diagnoses = res.data.diagnoses
         this.clinics = res.data.clinics
         this.examines = res.data.examines
-        this.memos = res.data.memos
+        this.memos = res.data.memo
+        console.log(this.memos)
       })
     },
     addInfo(){
@@ -245,6 +246,7 @@ export default {
           this.name = ""
           this.time = ""
           this.type = "medi"
+          this.getDataDate()
         })
         .catch((err)=>{
           alert("추가에 실패했습니다.")
@@ -257,6 +259,7 @@ export default {
           this.name = ""
           this.time = ""
           this.type = "medi"
+          this.getDataDate()
         })
         .catch((err)=>{
           alert("추가에 실패했습니다.")

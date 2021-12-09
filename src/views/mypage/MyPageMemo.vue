@@ -16,7 +16,11 @@
 <script>
 
 export default {
+  props : ["memos"],
   components: {
+  },
+  computed(){
+
   },
   data: () => ({
     memo:"",
@@ -25,14 +29,17 @@ export default {
       { text: '의사 소견서', icon: 'mdi-account' },
       { text: 'CT촬영 해석본', icon: 'mdi-flag' },
     ],
+    inner_memo : ""
   }),
-  computed : {
-
-  },
   methods : {
-
+    initialize(){
+      this.inner_memo = this.memos
+      console.log("이너 메모")
+      console.log(this.inner_memo)
+    }
   },
   mounted(){
+    this.initialize()
 
   },
   created(){

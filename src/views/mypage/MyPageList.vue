@@ -1,19 +1,29 @@
 <template>
-  <v-list >
+<div class="diagnose-container">
+  <v-list>
     <v-list-item-group
       color="primary"
     >
       <v-list-item
         v-for="(diagnose, i) in diagnoselist"
         :key="i"
+        class="list-item"
       >
         <v-list-item-content @click="gotoResult(diagnose)">
           <span></span>
           <v-list-item-title class="item-title" v-text="diagnose.name"></v-list-item-title>
         </v-list-item-content>
+        <v-divider
+          v-if="index < diagnoselist.length - 1"
+          :key="index"
+        ></v-divider>
       </v-list-item>
     </v-list-item-group>
   </v-list>
+  <div class="empty-message" v-if="!diagnoselist.length">
+    <span> 나의 기록이 존재하지 않습니다.</span>
+  </div>
+</div>
 </template>
 
 <script>
@@ -58,11 +68,21 @@ export default {
 </script>
 
 <style lang="scss">
-.v-list-item{
-  padding : 0 0 0 10px;
-  .item-title{
-    font-size : 14px;
+.diagnose-container{
+
+  .v-list-item{
+    padding : 0 0 0 10px;
+    .item-title{
+      font-size : 14px;
+      font-weight: bold;
+    }
+  }
+  .empty-message{
+    text-align: center;
+    color: #555555;
+    font-size: 14px;
     font-weight: bold;
+    margin-bottom: 16px;
   }
 }
 

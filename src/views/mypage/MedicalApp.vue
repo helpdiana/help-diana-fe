@@ -1,21 +1,26 @@
 <template>
-  <v-list >
-    <v-list-item-group
-      color="primary"
-    >
-      <v-list-item
-        v-for="(clinic, i) in cliniclist"
-        :key="i"
+  <div class="medical-container">
+    <v-list>
+      <v-list-item-group
+        color="primary"
       >
-        <v-list-item-content>
-          <span></span>
-          <v-list-item-title class="medical-item-title">
-            <span class="medic-dot"></span>{{clinic}}
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list-item-group>
-  </v-list>
+        <v-list-item
+          v-for="(clinic, i) in cliniclist"
+          :key="i"
+        >
+          <v-list-item-content>
+            <span></span>
+            <v-list-item-title class="medical-item-title">
+              <span class="medic-dot"></span>{{clinic}}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+    <div class="empty-message" v-if="!cliniclist.length">
+      <span> 진료예약이 존재하지 않습니다.</span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -55,22 +60,32 @@ export default {
 </script>
 
 <style lang="scss">
-.v-list-item{
-  padding : 0;
-  .medical-item-title{
-    font-size : 12px;
-    font-weight: bold;
+.medical-container{
 
-    .medic-dot{
-      width: 7px;
-      height: 7px;
-      margin: 0px 10px 0 5px;
-      border: solid 1px #348f50;
-      background-color: #348f50;
-      border-radius: 50%;
-      display: inline-block;
-      vertical-align: revert;
+  .v-list-item{
+    padding : 0;
+    .medical-item-title{
+      font-size : 12px;
+      font-weight: bold;
+
+      .medic-dot{
+        width: 7px;
+        height: 7px;
+        margin: 0px 10px 0 5px;
+        border: solid 1px #348f50;
+        background-color: #348f50;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: revert;
+      }
     }
+  }
+  .empty-message{
+    text-align: center;
+    color: #555555;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 16px;
   }
 }
 

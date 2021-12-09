@@ -1,21 +1,26 @@
 <template>
-  <v-list class="v-list-container">
-    <v-list-item-group
-      color="primary"
-    >
-      <v-list-item
-        v-for="(examine, i) in examinelist"
-        :key="i"
+  <div class="test-container">
+    <v-list class="v-list-container">
+      <v-list-item-group
+        color="primary"
       >
-        <v-list-item-content>
-          <span></span>
-          <v-list-item-title class="test-item-title">
-            <span class="test-dot"></span>{{examine}}
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list-item-group>
-  </v-list>
+        <v-list-item
+          v-for="(examine, i) in examinelist"
+          :key="i"
+        >
+          <v-list-item-content>
+            <span></span>
+            <v-list-item-title class="test-item-title">
+              <span class="test-dot"></span>{{examine}}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+    <div class="empty-message" v-if="!examinelist.length">
+      <span> 검사예약이 존재하지 않습니다.</span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -59,22 +64,31 @@ export default {
 </script>
 
 <style lang="scss">
-.v-list-item{
-  padding : 0;
-  .test-item-title{
-    font-size : 12px;
-    font-weight: bold;
+.test-container{
+  .v-list-item{
+    padding : 0;
+    .test-item-title{
+      font-size : 12px;
+      font-weight: bold;
 
-    .test-dot{
-      width: 7px;
-      height: 7px;
-      margin: 0px 10px 0 5px;
-      border: solid 1px #56b4d3;
-      background-color: #56b4d3;
-      border-radius: 50%;
-      display: inline-block;
-      vertical-align: revert;
+      .test-dot{
+        width: 7px;
+        height: 7px;
+        margin: 0px 10px 0 5px;
+        border: solid 1px #56b4d3;
+        background-color: #56b4d3;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: revert;
+      }
     }
+  }
+  .empty-message{
+    text-align: center;
+    color: #555555;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 16px;
   }
 }
 </style>

@@ -3,7 +3,8 @@
     <v-row><p class="text-2xl mb-6"> 텍스트 추출 결과 확인 </p></v-row>
     <v-row>
       <v-btn color="primary mr-2" small @click="editText()"> 텍스트 수정</v-btn>
-      <v-btn color="success mr-2" small @click="showResult()">결과 보기</v-btn>
+      <v-btn color="success mr-2" 
+      :loading="loading" :disabled="loading" small @click="loader='loading'; showResult()">결과 보기</v-btn>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-icon
@@ -73,6 +74,9 @@ export default {
         { text: 'Audience'},
         { text: 'Conversions'},
       ],
+
+      loading : false,
+      loader : null,
     }
   },
   watch : {
@@ -127,7 +131,10 @@ export default {
 
 
     showResult(){
-      console.log("asdf")
+      
+      const l = this.loader
+      this[l] = !this[l]
+
       let processDataText = this.processDataText()
       if(this.isedit){
         console.log(processDataText)
@@ -140,9 +147,13 @@ export default {
         Api.updateDiagnoseOCR(data)
         .then((res) => {
           this.$router.push('show-result')
+          this[l] = false
+          this.loader = null
         })
       }else{
         this.$router.push('show-result')
+        this[l] = false
+        this.loader = null
       }
     }
   },

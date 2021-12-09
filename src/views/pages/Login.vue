@@ -138,6 +138,7 @@ export default {
           console.log(data)
           Api.googleLoginDirect(data)
           .then((res)=>{
+            console.log(res)
             console.log(res.data)
             this.$store.commit('GOOGLELOGIN', res.data)
             //나중에 수정할것 이위치에 action으로 그 accesstoken이 valid한지 valid하지 않은지 해야함
