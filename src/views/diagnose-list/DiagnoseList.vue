@@ -89,7 +89,15 @@ export default {
       })
     },
     acceptDiagnose(id){
-      this.$router.push({name : "diagnose-edit", query:{"diagnose_id" : id}})
+      let data = {
+        diagnose_id : id
+      }
+      Api.checkDiagnose(data)
+      .then((res)=>{
+        console.log(res)
+        this.$router.push({name : "diagnose-edit", query:{"diagnose_id" : id}})
+      })
+
     }
   },
   mounted(){

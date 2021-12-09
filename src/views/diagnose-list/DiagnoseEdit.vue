@@ -87,7 +87,7 @@ export default {
       console.log(JSON.stringify(data))
       Api.updateDiagnoseTranslate(data)
       .then((res)=>{
-        console.log(res)
+        alert("저장이 완료되었습니다.")
       })
     },
     getDiagnoseAll(){
