@@ -5,19 +5,24 @@
       outlined
       label="memo"
       auto-grow
-      v-model="memo"
+      v-model="inner_memo"
     ></v-textarea>
-    <v-btn color="primary" class="memo-btn">
+    <v-btn color="primary" class="memo-btn" @click="updateMemo()">
       메모저장
     </v-btn>
 </div>
 </template>
 
 <script>
-
+import Api from '@/api/api'
 export default {
   props : ["memos"],
   components: {
+  },
+  watch : {
+    memos(){
+      this.initialize()
+    }
   },
   computed(){
 
@@ -33,13 +38,23 @@ export default {
   }),
   methods : {
     initialize(){
-      this.inner_memo = this.memos
-      console.log("이너 메모")
+      this.inner_memo = ""
+      this.inner_memo = this.memos.memo
       console.log(this.inner_memo)
+    },
+    updateMemo(){
+      
+      let data = {
+        date : this.memos.date,
+        memo : this.inner_memo
+      }
+      Api.updateMemo(data)
+      .then((res)=>{
+        alert("메모가 저장되었습니다.")
+      })
     }
   },
   mounted(){
-    this.initialize()
 
   },
   created(){

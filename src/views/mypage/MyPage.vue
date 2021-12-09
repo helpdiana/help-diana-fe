@@ -8,7 +8,7 @@
         class="text-none mr-2"
         @click="addInfo()"
       >
-        수정하기
+        추가하기
       </v-btn>
       </v-row>
       <v-row>

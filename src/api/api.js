@@ -201,6 +201,14 @@ export default {
             headers : this.requireAuth()
         })
     },
+    updateMemo(data){
+        return Send({
+            url: `/reserve/add/memo`,
+            method : 'post',
+            data : qs.stringify(data),
+            headers : this.requireAuth()
+        })
+    },
     //from here fastapi server
     getHighlightWord(data){
         return CustomSend({
