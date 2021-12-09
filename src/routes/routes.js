@@ -69,7 +69,7 @@ const routes = [
     name : "report",
     component:() => import("@/views/report/NewReportContainer.vue")
   },
-  /*
+  
   {
     path : "/diagnose-list",
     beforeEnter : requireAuth(),
@@ -83,9 +83,13 @@ const routes = [
     component:() => import("@/views/diagnose-list/DiagnoseEdit.vue"),
 
   },
-  */
+  {
+    path : "/profile",
+    beforeEnter : requireAuth(),
+    name : "profile",
+    component:() => import("@/views/profile/Profile.vue"),
+  },
   //여기까지가 helpdiana
-  
   {
     path: '/typography',
     

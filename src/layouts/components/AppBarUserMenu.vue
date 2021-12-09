@@ -45,16 +45,16 @@
           style="vertical-align:middle"
         >
           <span class="text--primary font-weight-semibold mb-n1">
-            John Doe
+            {{name}}
           </span>
-          <small class="text--disabled text-capitalize">Admin</small>
+          <small class="text--disabled text-capitalize">{{email}}</small>
         </div>
       </div>
 
       <v-divider></v-divider>
 
       <!-- Profile -->
-      <v-list-item link>
+      <v-list-item link @click="goProfile()">
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiAccountOutline }}
@@ -64,78 +64,6 @@
           <v-list-item-title>Profile</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
-      <!-- Email -->
-      <v-list-item link>
-        <v-list-item-icon class="me-2">
-          <v-icon size="22">
-            {{ icons.mdiEmailOutline }}
-          </v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Inbox</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <!-- Chat -->
-      <v-list-item link>
-        <v-list-item-icon class="me-2">
-          <v-icon size="22">
-            {{ icons.mdiChatOutline }}
-          </v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Chat</v-list-item-title>
-        </v-list-item-content>
-
-        <v-list-item-action>
-          <v-badge
-            inline
-            color="error"
-            content="2"
-          >
-          </v-badge>
-        </v-list-item-action>
-      </v-list-item>
-
-      <v-divider class="my-2"></v-divider>
-
-      <!-- Settings -->
-      <v-list-item link>
-        <v-list-item-icon class="me-2">
-          <v-icon size="22">
-            {{ icons.mdiCogOutline }}
-          </v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Settings</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <!-- Pricing -->
-      <v-list-item link>
-        <v-list-item-icon class="me-2">
-          <v-icon size="22">
-            {{ icons.mdiCurrencyUsd }}
-          </v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Pricing</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <!-- FAQ -->
-      <v-list-item link>
-        <v-list-item-icon class="me-2">
-          <v-icon size="22">
-            {{ icons.mdiHelpCircleOutline }}
-          </v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>FAQ</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
       <v-divider class="my-2"></v-divider>
 
       <!-- Logout -->
@@ -154,6 +82,7 @@
 </template>
 
 <script>
+import Api from '@/api/api'
 import store from "@/store"
 import {
   mdiAccountOutline,
@@ -167,6 +96,12 @@ import {
 } from '@mdi/js'
 
 export default {
+  data(){
+    return {
+      email : "",
+      name : "",
+    }
+  },
   setup() {
     return {
       icons: {
@@ -187,6 +122,20 @@ export default {
         this.$router.go('/')
       })
     },
+    goProfile(){
+      this.$router.push('profile')
+    },
+    getProfile(){
+      Api.getProfile()
+      .then((res) => {
+        this.email = res.data.email
+        this.name = res.data.name
+
+      })
+    },
+  },
+  mounted(){
+    this.getProfile()
   }
 }
 </script>
